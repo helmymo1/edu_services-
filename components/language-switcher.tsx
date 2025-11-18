@@ -1,19 +1,21 @@
-"use client";
+'use client';
 
-import React from 'react';
-import { useLanguage } from './language-provider';
 import { Button } from '@/components/ui/button';
+import { Globe } from 'lucide-react';
+import { useLanguage } from '@/components/language-provider';
 
 export default function LanguageSwitcher() {
-  const { locale, setLocale } = useLanguage();
+  const { setLocale } = useLanguage();
 
   return (
     <div className="flex items-center gap-2">
-      <Button variant={locale === 'en' ? 'default' : 'outline'} size="sm" onClick={() => setLocale('en')}>
-        EN
+      <Button variant="ghost" size="icon" onClick={() => setLocale('en')}>
+        <Globe className="h-5 w-5" />
+        <span className="sr-only">English</span>
       </Button>
-      <Button variant={locale === 'ar' ? 'default' : 'outline'} size="sm" onClick={() => setLocale('ar')}>
-        العربية
+      <Button variant="ghost" size="icon" onClick={() => setLocale('ar')}>
+        <Globe className="h-5 w-5" />
+        <span className="sr-only">العربية</span>
       </Button>
     </div>
   );

@@ -2,24 +2,60 @@
 
 import { useEffect, useState } from 'react';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { BookOpen, Star, Clock, ArrowLeft, User } from 'lucide-react';
-import { ReviewCardSkeleton, ServiceCardSkeleton } from '@/components/skeleton-loader';
+import { ReviewCardSkeleton } from '@/components/skeleton-loader';
 import sampleServices from '@/lib/sample-services';
 import { useLanguage } from '@/components/language-provider';
 
+type Service = {
+  category: string;
+  title: string;
+  rating: number;
+  total_reviews: number;
+  delivery_days: number;
+  description: string;
+  price: number;
+  id: string;
+  profiles: Tutor;
+};
+
+type Tutor = {
+  id: string;
+  full_name: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+};
+
+type Review = {
+  id: string;
+  rating: number;
+  created_at: string;
+  comment: string;
+  profiles: {
+    full_name: string | null;
+  };
+};
+
+type RelatedService = {
+  id: string;
+  title: string;
+  price: number;
+  delivery_days: number;
+  rating: number;
+};
+
 export default function ServiceDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const serviceId = params.id as string;
-  const [service, setService] = useState<any>(null);
-  const [tutor, setTutor] = useState<any>(null);
-  const [reviews, setReviews] = useState<any[]>([]);
-  const [relatedServices, setRelatedServices] = useState<any[]>([]);
+  const [service, setService] = useState<Service | null>(null);
+  const [tutor, setTutor] = useState<Tutor | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [relatedServices, setRelatedServices] = useState<RelatedService[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [reviewsLoading, setReviewsLoading] = useState(true);
   const [user, setUser] = useState<SupabaseUser | null>(null);

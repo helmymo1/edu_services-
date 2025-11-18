@@ -7,17 +7,37 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { BookOpen, LogOut, Plus, TrendingUp, AlertCircle } from 'lucide-react';
+import { BookOpen, LogOut, Plus, AlertCircle } from 'lucide-react';
+
+type Profile = {
+  full_name: string | null;
+  user_type: string;
+};
+
+type Service = {
+  id: string;
+  title: string;
+  price: number;
+  delivery_days: number;
+  is_active: boolean;
+};
+
+type Order = {
+  id: string;
+  title: string;
+  price: number;
+  status: string;
+};
 
 export default function TutorDashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<any>(null);
-  const [services, setServices] = useState<any[]>([]);
-  const [orders, setOrders] = useState<any[]>([]);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [services, setServices] = useState<Service[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [stats, setStats] = useState({ 
-    activeServices: 0, 
+  const [stats, setStats] = useState({
+    activeServices: 0,
     totalOrders: 0, 
     completedOrders: 0,
     totalEarnings: 0 
