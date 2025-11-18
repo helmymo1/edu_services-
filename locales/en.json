@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Home",
+    "browse": "Browse",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Your Academic Success, Our Priority",
+    "subtitle": "Premium academic services designed for Saudi Arabian students. Get expert essays, research papers, tutoring, and exam preparation with our 24-hour delivery guarantee.",
+    "explore": "Explore Services",
+    "becomeTutor": "Become a Tutor"
+  },
+  "browse": {
+    "heading": "Explore Services",
+    "subheading": "Find the perfect academic service for your needs",
+    "searchPlaceholder": "Search services...",
+    "noServices": "No services found matching your criteria"
+  },
+  "service": {
+    "notFound": "Service not found",
+    "backToServices": "Back to Services",
+    "bookNow": "Book Now",
+    "loginToBook": "Login to Book"
+  },
+  "buttons": {
+    "viewDetails": "View Details",
+    "createAccount": "Create Account",
+    "placeOrder": "Place Order"
+  }
+}
