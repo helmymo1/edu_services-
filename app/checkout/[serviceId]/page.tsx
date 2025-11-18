@@ -13,12 +13,20 @@ import { BookOpen, ArrowLeft, Loader2 } from 'lucide-react';
 import sampleServices from '@/lib/sample-services';
 import { useLanguage } from '@/components/language-provider';
 
+type Service = {
+  id: string;
+  title: string;
+  price: number;
+  delivery_days: number;
+  tutor_id: string;
+};
+
 export default function CheckoutPage() {
   const params = useParams();
   const router = useRouter();
   const serviceId = params.serviceId as string;
   
-  const [service, setService] = useState<any>(null);
+  const [service, setService] = useState<Service | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);

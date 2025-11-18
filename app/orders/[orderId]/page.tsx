@@ -7,8 +7,27 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { BookOpen, Download, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Download, CheckCircle2 } from 'lucide-react';
 import { MessagingPanel } from '@/components/messaging-panel';
+
+type Order = {
+  title: string;
+  status: string;
+  description: string;
+  delivery_date: string;
+  price: number;
+  file_url: string;
+  services: {
+    category: string;
+  };
+  tutor: Tutor;
+};
+
+type Tutor = {
+  id: string;
+  full_name: string | null;
+  bio: string | null;
+};
 
 export default function OrderDetailPage() {
   const params = useParams();
@@ -17,11 +36,10 @@ export default function OrderDetailPage() {
   const isSuccess = searchParams.get('success') === 'true';
   const reviewSubmitted = searchParams.get('review') === 'submitted';
 
-  const [order, setOrder] = useState<any>(null);
-  const [tutor, setTutor] = useState<any>(null);
+  const [order, setOrder] = useState<Order | null>(null);
+  const [tutor, setTutor] = useState<Tutor | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
-  const [showMessaging, setShowMessaging] = useState(false);
 
   useEffect(() => {
     async function fetchData() {

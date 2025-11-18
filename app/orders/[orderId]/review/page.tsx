@@ -10,12 +10,16 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { BookOpen, ArrowLeft, Star, Loader2 } from 'lucide-react';
 
+type Order = {
+  tutor_id: string;
+};
+
 export default function ReviewPage() {
   const params = useParams();
   const router = useRouter();
   const orderId = params.orderId as string;
 
-  const [order, setOrder] = useState<any>(null);
+  const [order, setOrder] = useState<Order | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);

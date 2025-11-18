@@ -5,15 +5,30 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { BookOpen, Search, Star, Clock } from 'lucide-react';
 import { ServiceCardSkeleton } from '@/components/skeleton-loader';
 import sampleServices from '@/lib/sample-services';
 import { useLanguage } from '@/components/language-provider';
 
+type Service = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  delivery_days: number;
+  category: string;
+  rating: number;
+  total_reviews: number;
+  image_url: string;
+  tutor_id: string;
+  profiles: {
+    full_name: string | null;
+  };
+};
+
 export default function BrowseServicesPage() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -49,7 +64,7 @@ export default function BrowseServicesPage() {
         try {
           const detailed = JSON.stringify(error, Object.getOwnPropertyNames(error as object), 2);
           console.error('Error fetching services (detailed):', detailed);
-        } catch (stringifyErr) {
+        } catch {
           console.error('Error fetching services:', error);
         }
         // Fallback to sample services so the UI remains usable when the API fails

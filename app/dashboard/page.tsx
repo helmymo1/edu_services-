@@ -9,13 +9,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link';
 import { BookOpen, LogOut, Plus, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { DashboardStatsSkeleton, OrderCardSkeleton } from '@/components/skeleton-loader';
-import { FullPageLoading } from '@/components/loading-spinner';
+
+type Profile = {
+  full_name: string | null;
+  user_type: string;
+};
+
+type Order = {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  price: number;
+  delivery_date: string;
+  created_at: string;
+  services: {
+    title: string;
+    category: string;
+    price: number;
+  };
+};
 
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<any>(null);
-  const [orders, setOrders] = useState<any[]>([]);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
 
